@@ -1,0 +1,6 @@
+name: SpawnerDropper
+version: 0.0.1
+description: No description
+author: majikchicken
+
+main: io.github.casnix.spawnerdropper.Main

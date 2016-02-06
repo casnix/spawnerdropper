@@ -1,0 +1,7 @@
+{
+	"Percent chance drop from TNT explosion":10;
+	"Percent chance drop from creeper explosion":45,
+	"Percent chance drop when broken from pickaxe":"Not implemented yet",
+	
+	"Configuration file instructions":"Set any of the above files to -1 (negative one) to turn off drops from the respective event",
+}

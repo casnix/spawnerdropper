@@ -1,0 +1,29 @@
+As of 0.0.1:
+  For 0.0.2:
+  - Add config file support
+    - JSON: Make three types of drops:
+    {
+      "SpawnerDropper is setup":true,
+      
+      "Creeper explosion drop":true,
+      "TNT explosion drop":true,
+      "Player break drop":false,
+      
+      "Drop chance from creeper explosion":45,
+      "Drop chance from TNT explosion":10,
+      "Drop chance from player breaking spawner block":1,
+    }
+    - Print message to server and command line if the config file doesn't work.
+    - On first run, see if can open ./SpawnerDropperConfig.json, if can't or if !{SpawnerDropper is setup}, then
+      take the above template and write it to ./SpawnerDropperConfig.json
+  - Drop the spawner of type
+  
+  For 0.1.0:
+  - All of the above
+  - In game/console commands to change configuration files in game.
+    - Will have to use permissions.
+  
+  - Obfuscated class for developer? "io.github.casnix.spawndropper.DeveloperPropClass"?
+    - Maybe this should be saved for the Casnix Plugin System (CPS).  This way could also add other users.
+    - Maybe save this for pro money plugins to be able to combat piracy.  Would also have to set up a server for logging
+    
