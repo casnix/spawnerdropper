@@ -32,6 +32,8 @@ public final class SpawnerStack {
 			
 			long number = (Long) jsonObj.get(spawnerType);
 			
+//			System.out.println("[SD DBG MSG] GSIS numberInServer("+number+")");
+			
 			return number;
 		}catch(ParseException e){
 			Bukkit.getLogger().warning("[SpawnerDropper] Caught ParseException in GetSpawnersInService(String)");
@@ -76,6 +78,8 @@ public final class SpawnerStack {
 			if(numberInService <= 0){
 				return false;
 			}else{
+//				System.out.println("[SD DBG MSG] TSOOS numberInServer("+numberInService+")");
+				
 				numberInService -= 1;
 				jsonObj.put(spawnerType, new Long(numberInService));
 				
@@ -113,7 +117,7 @@ public final class SpawnerStack {
 		// Write file back to disk
 		try{
 			// Read entire ./SpawnerDropper.SpawnerStack.json into a string
-		String spawnerStack = new String(Files.readAllBytes(Paths.get("./plugins/SpawnerDropper/SpawnerStack.json")));
+			String spawnerStack = new String(Files.readAllBytes(Paths.get("./plugins/SpawnerDropper/SpawnerStack.json")));
 			
 			// get the value of JSON->{spawnerType}
 			JSONParser parser = new JSONParser();
@@ -128,6 +132,7 @@ public final class SpawnerStack {
 				numberInService = 0;
 			}
 			
+//			System.out.println("[SD DBG MSG] PSIS numberInServer("+numberInService+")");
 			numberInService += 1;
 			jsonObj.put(spawnerType, new Long(numberInService));
 						

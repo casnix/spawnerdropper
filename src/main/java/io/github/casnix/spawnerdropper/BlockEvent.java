@@ -41,7 +41,7 @@ public class BlockEvent implements Listener{
 		int rn;
 		
 		String entType = event.getEntityType().toString();
-		Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lEvent entity type = \u00A7a"+entType);
+		//Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lEvent entity type = \u00A7a"+entType);
 		
 		for(Block block : destroyedBlocks){
 			if(block.getType() == Material.MOB_SPAWNER && (event.getEntityType().toString().equals("PRIMED_TNT") )){
@@ -52,13 +52,13 @@ public class BlockEvent implements Listener{
 				String spawnerCreature = spawnerBlock.getCreatureTypeName();
 				EntityType spawnerEntityID = spawnerBlock.getSpawnedType();
 				
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerCreature);
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerEntityID);
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lExploding entity of = \u00A7a"+event.getEntity().getEntityId());
+				//Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerCreature);
+				//Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerEntityID);
+				//Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lExploding entity of = \u00A7a"+event.getEntity().getEntityId());
 				
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lMeasuring percentile from configuration");
+				//Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lMeasuring percentile from configuration");
 				percentDrop = Config.GetTNTChance(); // Default is 10%
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lDone");
+				//Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lDone");
 				
 				if(rn < percentDrop){
 					int closestPlayer = 0;
@@ -79,13 +79,14 @@ public class BlockEvent implements Listener{
 								itemMeta.setLore(Arrays.asList("SpawnerDropper", "Generated block", "Moo goes the truck"));
 								
 								newSpawnerBlock.setItemMeta(itemMeta);
+								newSpawnerBlock.setAmount(1);
 																
 								((Player) myEntity).getInventory().addItem(newSpawnerBlock);
 								//((Player) myEntity).updateInventory();
 								
-								Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lPutting onto stack");
+					//			Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lPutting onto stack");
 								boolean success = SpawnerStack.PutSpawnerIntoService(spawnerCreature);
-								Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lDone");
+						//		Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lDone");
 								if(!success){ // Failed to write to our file
 									((Player) myEntity).sendMessage("\u00A7e[SpawnerDropper] : Failed to add spawner to plugin service");
 								}
@@ -105,9 +106,9 @@ public class BlockEvent implements Listener{
 				String spawnerCreature = spawnerBlock.getCreatureTypeName();
 				EntityType spawnerEntityID = spawnerBlock.getSpawnedType();
 				
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerCreature);
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerEntityID);
-				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpddawnerDropper\u00A7e]! \u00A7c\u00A7lExploding entity of = \u00A7a"+event.getEntity().getEntityId());
+//				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerCreature);
+	//			Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerEntityID);
+		//		Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpddawnerDropper\u00A7e]! \u00A7c\u00A7lExploding entity of = \u00A7a"+event.getEntity().getEntityId());
 				
 				percentDrop = Config.GetCreeperChance(); // Default is 45%
 				
@@ -130,6 +131,7 @@ public class BlockEvent implements Listener{
 								itemMeta.setLore(Arrays.asList("SpawnerDropper", "Generated block", "Moo goes the truck"));
 								
 								newSpawnerBlock.setItemMeta(itemMeta);
+								newSpawnerBlock.setAmount(1);
 								
 								((Player) myEntity).getInventory().addItem(newSpawnerBlock);
 								
@@ -154,27 +156,32 @@ public class BlockEvent implements Listener{
 	// Handle when a player places one of our spa
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
-		System.out.println("[SD DEBUG] 21");
+		// Need to wait atleast 200 ticks because of a conflict with another plugin
+		int i = 0;
+		while(i <= 200){
+			i++;
+		}
+	//	System.out.println("[SD DEBUG] 21");
 		Block placedBlock = event.getBlockPlaced();
 		Player player = event.getPlayer();
 		
 		boolean isOurBlock = false;
 		
 		if(placedBlock.getType().equals(Material.MOB_SPAWNER)){
-			System.out.println("[SD DEBUG] 13");
+//			System.out.println("[SD DEBUG] 13");
 			if(player.getItemInHand().hasItemMeta()){
-				System.out.println("[SD DEBUG] 14");
+//				System.out.println("[SD DEBUG] 14");
 				if(player.getItemInHand().getItemMeta().hasLore()){
-					System.out.println("[SD DEBUG] 15");
+	//				System.out.println("[SD DEBUG] 15");
 					List<String> lore = player.getItemInHand().getItemMeta().getLore();
 					
 					int i = 1;
 					for(String line : lore){
-						System.out.println("[SD DEBUG] 16");
+		//				System.out.println("[SD DEBUG] 16");
 						if(i == 1){
-							System.out.println("[SD DEBUG] 17");
+			//				System.out.println("[SD DEBUG] 17");
 							if(line.equals("SpawnerDropper") && player.getItemInHand().getItemMeta().hasDisplayName()){
-								System.out.println("[SD DEBUG] 18");
+				//				System.out.println("[SD DEBUG] 18");
 								isOurBlock = true;
 								break;
 							}
@@ -190,11 +197,11 @@ public class BlockEvent implements Listener{
 		}
 		
 		if(isOurBlock){
-			System.out.println("[SD DEBUG] 19");
+//			System.out.println("[SD DEBUG] 19");
 			long spawnersInService = SpawnerStack.GetSpawnersInService(player.getItemInHand().getItemMeta().getDisplayName());
 			
 			if(spawnersInService > 0){
-				System.out.println("[SD DEBUG] 20");
+	//			System.out.println("[SD DEBUG] 20");
 				CreatureSpawner ourSpawner = (CreatureSpawner) placedBlock.getState();
 				
 				ourSpawner.setCreatureTypeByName(player.getItemInHand().getItemMeta().getDisplayName());
