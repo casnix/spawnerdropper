@@ -46,7 +46,7 @@ public class BlockEvent implements Listener{
 		for(Block block : destroyedBlocks){
 			if(block.getType() == Material.MOB_SPAWNER && (event.getEntityType().toString().equals("PRIMED_TNT") )){
 				Random random = new Random();
-				rn = random.nextInt(maxPercent);
+				rn = random.nextInt(maxPercent);  // 0 to 100
 				
 				CreatureSpawner spawnerBlock = (CreatureSpawner) block.getState();
 				String spawnerCreature = spawnerBlock.getCreatureTypeName();
@@ -57,7 +57,7 @@ public class BlockEvent implements Listener{
 				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lExploding entity of = \u00A7a"+event.getEntity().getEntityId());
 				
 				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lMeasuring percentile from configuration");
-				percentDrop = Config.GetTNTChance(); //Will be 45
+				percentDrop = Config.GetTNTChance(); // Default is 10%
 				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lDone");
 				
 				if(rn < percentDrop){
@@ -81,6 +81,7 @@ public class BlockEvent implements Listener{
 								newSpawnerBlock.setItemMeta(itemMeta);
 																
 								((Player) myEntity).getInventory().addItem(newSpawnerBlock);
+								//((Player) myEntity).updateInventory();
 								
 								Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lPutting onto stack");
 								boolean success = SpawnerStack.PutSpawnerIntoService(spawnerCreature);
@@ -98,7 +99,7 @@ public class BlockEvent implements Listener{
 				}
 			}else if(block.getType() == Material.MOB_SPAWNER && (event.getEntityType().toString().equals("CREEPER"))){
 				Random random = new Random();
-				rn = random.nextInt(maxPercent);
+				rn = random.nextInt(maxPercent); // 0 to 100
 				
 				CreatureSpawner spawnerBlock = (CreatureSpawner) block.getState();
 				String spawnerCreature = spawnerBlock.getCreatureTypeName();
@@ -108,7 +109,7 @@ public class BlockEvent implements Listener{
 				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpawnerDropper\u00A7e]! \u00A7c\u00A7lBroke spawner of type = \u00A7a"+spawnerEntityID);
 				Bukkit.getServer().broadcastMessage("\u00A7e[\u00A74SpddawnerDropper\u00A7e]! \u00A7c\u00A7lExploding entity of = \u00A7a"+event.getEntity().getEntityId());
 				
-				percentDrop = Config.GetCreeperChance(); // Will be 10
+				percentDrop = Config.GetCreeperChance(); // Default is 45%
 				
 				if(rn < percentDrop){
 					int closestPlayer = 0;
@@ -153,20 +154,27 @@ public class BlockEvent implements Listener{
 	// Handle when a player places one of our spa
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
+		System.out.println("[SD DEBUG] 21");
 		Block placedBlock = event.getBlockPlaced();
 		Player player = event.getPlayer();
 		
 		boolean isOurBlock = false;
 		
 		if(placedBlock.getType().equals(Material.MOB_SPAWNER)){
+			System.out.println("[SD DEBUG] 13");
 			if(player.getItemInHand().hasItemMeta()){
+				System.out.println("[SD DEBUG] 14");
 				if(player.getItemInHand().getItemMeta().hasLore()){
+					System.out.println("[SD DEBUG] 15");
 					List<String> lore = player.getItemInHand().getItemMeta().getLore();
 					
 					int i = 1;
 					for(String line : lore){
+						System.out.println("[SD DEBUG] 16");
 						if(i == 1){
+							System.out.println("[SD DEBUG] 17");
 							if(line.equals("SpawnerDropper") && player.getItemInHand().getItemMeta().hasDisplayName()){
+								System.out.println("[SD DEBUG] 18");
 								isOurBlock = true;
 								break;
 							}
@@ -182,9 +190,11 @@ public class BlockEvent implements Listener{
 		}
 		
 		if(isOurBlock){
-			int spawnersInService = SpawnerStack.GetSpawnersInService(player.getItemInHand().getItemMeta().getDisplayName());
+			System.out.println("[SD DEBUG] 19");
+			long spawnersInService = SpawnerStack.GetSpawnersInService(player.getItemInHand().getItemMeta().getDisplayName());
 			
 			if(spawnersInService > 0){
+				System.out.println("[SD DEBUG] 20");
 				CreatureSpawner ourSpawner = (CreatureSpawner) placedBlock.getState();
 				
 				ourSpawner.setCreatureTypeByName(player.getItemInHand().getItemMeta().getDisplayName());

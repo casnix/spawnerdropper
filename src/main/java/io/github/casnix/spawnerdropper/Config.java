@@ -34,13 +34,16 @@ public final class Config {
 			JSONObject jsonObj = (JSONObject) obj;
 			
 			System.out.println("[SD DEBUG] 5");
-			String chance = (String) jsonObj.get("Percent_chance_drop_from_TNT_explosion");
+			String chance = (String) jsonObj.get("tntpercent");
 			
 			System.out.println("[SD DEBUG] 6");
-			int ret = Integer.valueOf(chance);
+			if(chance != null)
+				System.out.println("[SD DBG MSG] "+chance);
+			else
+				System.out.println("[SD DBG MSG] chance is null");
 			
 			System.out.println("[SD DEBUG] 7");
-			return ret;
+			return Integer.valueOf(chance);
 			//System.out.println("[SD DEBUG] 6");
 			//return chance;
 		}catch(ParseException e){
@@ -78,9 +81,9 @@ public final class Config {
 			JSONObject jsonObj = (JSONObject) obj;
 			
 			System.out.println("[SD DEBUG] 11");
-			int chance = (Integer) jsonObj.get("Percent chance drop from creeper explosion");
+			String chance = (String) jsonObj.get("creeperpercent");
 			System.out.println("[SD DEBUG] 12");
-			return chance;
+			return Integer.valueOf(chance);
 		}catch(ParseException e){
 			Bukkit.getLogger().warning("[SpawnerDropper] Caught ParseException in GetCreeperChance(void)");
 			e.printStackTrace();
@@ -93,6 +96,11 @@ public final class Config {
 			return -1;
 		}catch(IOException e){
 			Bukkit.getLogger().warning("[SpawnerDropper] Caught IOException in GetCreeperChance(void)");
+			e.printStackTrace();
+			
+			return -1;
+		}catch(NumberFormatException e){
+			Bukkit.getLogger().warning("[SpawnerDropper] Caught NumberFormatException in GetCreeperChance(void)");
 			e.printStackTrace();
 			
 			return -1;

@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
 
 public final class SpawnerStack {
 	// Returns how many of what kind of spawners are in the game from SpawnerDropper
-	public static int GetSpawnersInService(String spawnerType){
+	public static long GetSpawnersInService(String spawnerType){
 		try{
 			// Read entire ./SpawnerDropper.SpawnerStack.json into a string
 			String spawnerStack = new String(Files.readAllBytes(Paths.get("./plugins/SpawnerDropper/SpawnerStack.json")));
@@ -30,7 +30,7 @@ public final class SpawnerStack {
 			
 			JSONObject jsonObj = (JSONObject) obj;
 			
-			int number = (Integer) jsonObj.get(spawnerType);
+			long number = (Long) jsonObj.get(spawnerType);
 			
 			return number;
 		}catch(ParseException e){
@@ -71,18 +71,20 @@ public final class SpawnerStack {
 			
 			JSONObject jsonObj = (JSONObject) obj;
 			
-			int numberInService = (Integer) jsonObj.get(spawnerType);
+			long numberInService = (Long) jsonObj.get(spawnerType);
 			
 			if(numberInService <= 0){
 				return false;
 			}else{
 				numberInService -= 1;
-				jsonObj.put(spawnerType, new Integer(numberInService));
+				jsonObj.put(spawnerType, new Long(numberInService));
 				
 				FileWriter file = new FileWriter("./plugins/SpawnerDropper/SpawnerStack.json");
 				file.write(jsonObj.toJSONString());
 				file.flush();
 				file.close();
+				
+				return true;
 			}
 		}catch(ParseException e){
 			Bukkit.getLogger().warning("[SpawnerDropper] Caught ParseException in TakeSpawnerOutOfService(String)");
@@ -100,8 +102,6 @@ public final class SpawnerStack {
 			
 			return false;
 		}
-		
-		return false;
 	}
 
 	// Puts a spawner into service when one is broken
@@ -122,20 +122,21 @@ public final class SpawnerStack {
 			
 			JSONObject jsonObj = (JSONObject) obj;
 				
-			int numberInService = (Integer) jsonObj.get(spawnerType);
+			long numberInService = (Long) jsonObj.get(spawnerType);
 				
 			if(numberInService < 0){
 				numberInService = 0;
 			}
 			
 			numberInService += 1;
-			jsonObj.put(spawnerType, new Integer(numberInService));
+			jsonObj.put(spawnerType, new Long(numberInService));
 						
 			FileWriter file = new FileWriter("./plugins/SpawnerDropper/SpawnerStack.json");
 			file.write(jsonObj.toJSONString());
 			file.flush();
 			file.close();
 			
+			return true;
 		}catch(ParseException e){
 			Bukkit.getLogger().warning("[SpawnerDropper] Caught ParseException in PutSpawnerIntoService(String)");
 			e.printStackTrace();
@@ -152,7 +153,5 @@ public final class SpawnerStack {
 					
 			return false;
 		}
-		
-		return false;
 	}
 }
